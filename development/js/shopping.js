@@ -75,9 +75,8 @@
     updateParticles();
   }
 
-  /**
+  *
    * Particles
-   */
 
   function Particle() {
 
@@ -123,9 +122,9 @@
     }
   }
 
-  /**
+  *
    * Utils
-   */
+
 
   // Applies css `properties` to an element.
   function applyProperties( target, properties ) {

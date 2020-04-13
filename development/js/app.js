@@ -1,75 +1,74 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  var submitName = document.getElementById('submit_name');          //Znajduję input imienia
-  var inputName = document.getElementById('input_name');          //Znajduję button wysyłający imię z inputu
-  var userName = document.querySelector('.user_name');//Imię w headerze aplikacji
-  var firstEntry = document.querySelector('.first_entry');
-  //console.log(inputName.value);
+    var submitName = document.getElementById('submit_name');          //Znajduję input imienia
+    var inputName = document.getElementById('input_name');          //Znajduję button wysyłający imię z inputu
+    var userName = document.querySelector('.user_name');//Imię w headerze aplikacji
+    var firstEntry = document.querySelector('.first_entry');
+    //console.log(inputName.value);
 
 // localStorage.clear();
-  if (localStorage.getItem('userName') === null) {
+    if (localStorage.getItem('userName') === null) {
 
-    submitName.addEventListener('click', function (event) {
-      if (inputName.value !== '') {                                               //jeśli coś jest w inpucie
+        submitName.addEventListener('click', function (event) {
+            if (inputName.value !== '') {                                               //jeśli coś jest w inpucie
 
-        localStorage.setItem('userName', inputName.value);                  //dodaję do local storage imię pod nazwą userName
-        // console.log(localStorage);
-        inputName.value = null;
+                localStorage.setItem('userName', inputName.value);                  //dodaję do local storage imię pod nazwą userName
+                // console.log(localStorage);
+                inputName.value = null;
 
-        userName.innerText = localStorage.userName;//zmieniam imię w html na podane przez input
+                userName.innerText = localStorage.userName;//zmieniam imię w html na podane przez input
+                submitName.parentElement.parentElement.parentElement.removeChild(firstEntry.parentElement);
+                window.location.reload(true);
+
+
+            }
+
+        });
+        inputName.addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                submitName.click();
+            }
+        })
+    } else {
+        userName.innerText = localStorage.userName;
         submitName.parentElement.parentElement.parentElement.removeChild(firstEntry.parentElement);
-        window.location.reload(true);
-
-
-      }
-
+    }
+    if (localStorage.getItem('userName') === null) {
+        var app_main = document.querySelector('.app_content_main');
+        var dashboard = document.querySelector('.dashboard');
+        app_main.style.display = 'block';
+        dashboard.style.display = 'none';
+    }
+    //Usuwanie powiadomien widgetow//
+    var close_buttons = document.querySelectorAll('.fa-window-close');
+    for (var i = 0; i < close_buttons.length; i++) {
+        close_buttons[i].addEventListener('click', function () {
+            this.parentElement.parentElement.removeChild(this.parentElement);
+        })
+    }
+    var widget_recipe = document.querySelector('.widget_add_recipe');
+    widget_recipe.addEventListener('click', function () {
+        localStorage.setItem('widget', 'clicked');
+        window.location.href = 'recipes.html';
     });
-    inputName.addEventListener("keyup", function (event) {
-      if (event.key === "Enter") {
-        submitName.click();
-      }
-    })
-  } else {
-    userName.innerText = localStorage.userName;
-    submitName.parentElement.parentElement.parentElement.removeChild(firstEntry.parentElement);
-  }
-  if(localStorage.getItem('userName') === null )
-  {
-    var app_main = document.querySelector('.app_content_main');
-    var dashboard = document.querySelector('.dashboard');
-    app_main.style.display = 'block';
-    dashboard.style.display = 'none';
-  }
-  //Usuwanie powiadomien widgetow//
-  var close_buttons = document.querySelectorAll('.fa-window-close');
-  for(var i=0; i < close_buttons.length; i++){
-    close_buttons[i].addEventListener('click', function () {
-      this.parentElement.parentElement.removeChild(this.parentElement);
-    })
-  }
-  var widget_recipe = document.querySelector('.widget_add_recipe');
-  widget_recipe.addEventListener('click', function () {
-    localStorage.setItem('widget', 'clicked');
-    window.location.href = 'recipes.html';
-  });
-  var widget_schedule = document.querySelector('.widget_add_schedule');
+    var widget_schedule = document.querySelector('.widget_add_schedule');
 
-  widget_schedule.addEventListener('click', function () {
-    localStorage.setItem('widget', 'clicked');
-    window.location.href = 'schedules.html';
-  });
-  var note_info_text = document.querySelector('.note_info_text');
-  var recipes_lenght = localStorage.getItem("recipe_leng");
-  var widget_recipe_num = document.querySelector('.recipe_leng');
-  if(recipes_lenght === "0"){
-    note_info_text.innerHTML = "Nie masz przepisów!";
-  }else if(recipes_lenght === '1') {
-    widget_recipe_num.innerHTML = '1 przepis';
-  }else if(recipes_lenght === '2' || recipes_lenght === '3' || recipes_lenght === '4') {
-    widget_recipe_num.innerHTML = recipes_lenght + ' przepisy';
-  }else{
-    widget_recipe_num.innerHTML = recipes_lenght + ' przepisów';
-  }
+    widget_schedule.addEventListener('click', function () {
+        localStorage.setItem('widget', 'clicked');
+        window.location.href = 'schedules.html';
+    });
+    var note_info_text = document.querySelector('.note_info_text');
+    var recipes_lenght = localStorage.getItem("recipe_leng");
+    var widget_recipe_num = document.querySelector('.recipe_leng');
+    if (recipes_lenght === "0") {
+        note_info_text.innerHTML = "Nie masz przepisów!";
+    } else if (recipes_lenght === '1') {
+        widget_recipe_num.innerHTML = '1 przepis';
+    } else if (recipes_lenght === '2' || recipes_lenght === '3' || recipes_lenght === '4') {
+        widget_recipe_num.innerHTML = recipes_lenght + ' przepisy';
+    } else {
+        widget_recipe_num.innerHTML = recipes_lenght + ' przepisów';
+    }
 
     //****************************lista planów****************************//
 
@@ -103,44 +102,44 @@ document.addEventListener('DOMContentLoaded', function () {
 
         }
 
-        for(let i =0; i<planBoxGrid.children.length;i++){
+        for (let i = 0; i < planBoxGrid.children.length; i++) {
 
-            if(planBoxGrid.children[i].classList == ""){
+            if (planBoxGrid.children[i].classList == "") {
                 listedMeals.push(planBoxGrid.children[i])
             }
 
 
         }
-        if(schedules.length > 1) {
+        if (schedules.length > 1) {
 
-          previous.addEventListener('click', function (event) {
+            previous.addEventListener('click', function (event) {
 
-            currentSchedule = findPrevSchedule(schedulesSortedByWeek);
-            weekID.innerText = currentSchedule.week;
-            for (let i = 0; i < listedMeals.length; i++) {
-              listedMeals[i].innerText = currentSchedule.meals[i];
-
-
-            }
+                currentSchedule = findPrevSchedule(schedulesSortedByWeek);
+                weekID.innerText = currentSchedule.week;
+                for (let i = 0; i < listedMeals.length; i++) {
+                    listedMeals[i].innerText = currentSchedule.meals[i];
 
 
-          });
-
-          next.addEventListener('click', function (event) {
-            currentSchedule = findNextSchedule(schedulesSortedByWeek);
-            weekID.innerText = currentSchedule.week;
-
-            for (let i = 0; i < listedMeals.length; i++) {
-              listedMeals[i].innerText = currentSchedule.meals[i];
+                }
 
 
-            }
+            });
+
+            next.addEventListener('click', function (event) {
+                currentSchedule = findNextSchedule(schedulesSortedByWeek);
+                weekID.innerText = currentSchedule.week;
+
+                for (let i = 0; i < listedMeals.length; i++) {
+                    listedMeals[i].innerText = currentSchedule.meals[i];
 
 
-          });
-        }else{
-          next.style.cursor = 'not-allowed';
-          previous.style.cursor = 'not-allowed';
+                }
+
+
+            });
+        } else {
+            next.style.cursor = 'not-allowed';
+            previous.style.cursor = 'not-allowed';
         }
 
 
@@ -215,7 +214,9 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
-    } function findPrevSchedule(sortedSchedules) {
+    }
+
+    function findPrevSchedule(sortedSchedules) {
         if (weekID.innerText == sortedSchedules[0].week) {
             return sortedSchedules[sortedSchedules.length - 1]
         } else {
