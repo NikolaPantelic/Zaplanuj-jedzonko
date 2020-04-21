@@ -28,10 +28,8 @@ document.addEventListener('DOMContentLoaded', function () {
     new_entry_week.classList.add('week');
     new_entry_week.style.paddingLeft = '24px';
     new_entry_action.classList.add('action');
-    new_entry_edit.classList.add('far','fa-edit', 'icon','edit');
-    new_entry_bin.classList.add('far','fa-trash-alt', 'icon', 'bin');
-
-
+    new_entry_edit.classList.add('far', 'fa-edit', 'icon', 'edit');
+    new_entry_bin.classList.add('far', 'fa-trash-alt', 'icon', 'bin');
 
 
     var plus = document.querySelector('.title__plus');
@@ -63,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
     for (let i = 0; i < selects.length; i++) {
         for (let j = 0; j < allRecipes.length; j++) {
             let newOption = document.createElement('OPTION');
-            newOption.innerText = (Number(allRecipes[j].id) +1) +'. '+ allRecipes[j].title;
+            newOption.innerText = (Number(allRecipes[j].id) + 1) + '. ' + allRecipes[j].title;
             selects[i].appendChild(newOption);
         }
 
@@ -137,21 +135,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 //***************czyszczenie********************/
                 var inputsAndSelects = document.querySelectorAll('.addschedule input, .addschedule textarea, .addschedule select');
 
-                for(let i = 0; i<inputsAndSelects.length;i++){
-                    if(inputsAndSelects[i].tagName === "SELECT"){
+                for (let i = 0; i < inputsAndSelects.length; i++) {
+                    if (inputsAndSelects[i].tagName === "SELECT") {
                         inputsAndSelects[i].value = 'defaultRecipeCheck'
-                    }else{
+                    } else {
                         inputsAndSelects[i].value = "";
                     }
 
                 }
 
 
-
         }
     });
 
-    for(var i = 0; i < allSchedules.length; i++){
+    for (var i = 0; i < allSchedules.length; i++) {
 
         var clone = new_entry.cloneNode(true);
         clone.querySelector('.id').innerText = allSchedules[i].id + 1;
@@ -166,16 +163,16 @@ document.addEventListener('DOMContentLoaded', function () {
         clone.querySelector('.bin').addEventListener('click', function () {
             this.parentElement.parentElement.parentElement.removeChild(this.parentElement.parentElement);
             var del_id = this.parentElement.parentElement.querySelector('.id').innerText - 1;
-            for(var j=0; j < allSchedules.length; j++) {
-                if(del_id === allSchedules[j].id){
+            for (var j = 0; j < allSchedules.length; j++) {
+                if (del_id === allSchedules[j].id) {
                     allSchedules.splice(j, 1);
-                    if(allSchedules.length > 0) {
+                    if (allSchedules.length > 0) {
                         for (var z = 0; z < allSchedules.length; z++) {
                             allSchedules[z].id = z;
                             localStorage.setItem("schedules", JSON.stringify(allSchedules));
                             window.location.reload(true);
                         }
-                    }else{
+                    } else {
                         localStorage.setItem("schedules", JSON.stringify(allSchedules));
                     }
                 }
@@ -183,18 +180,19 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }
 
-    function searchMealDefault(selectinput){
+    function searchMealDefault(selectinput) {
         let counter = 0;
-        for(let i = 0; i<selectinput.length;i++){
-            if(selectinput[i].value === 'defaultRecipeCheck'){
+        for (let i = 0; i < selectinput.length; i++) {
+            if (selectinput[i].value === 'defaultRecipeCheck') {
                 selectinput[i].style.border = '2px red dashed';
                 counter++
-            }else{
+            } else {
                 selectinput[i].style.border = ' 1px solid #A9A9A9'
             }
         }
         return counter > 0;
     }
+
     function saveToLocalStorage(array, key) {
         var dataFromLocalStorage = [];
         if (localStorage.getItem(key) !== null) {
@@ -206,25 +204,26 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem(key, JSON.stringify(dataFromLocalStorage));
         }
     }
+
     var addschedule = document.querySelector('.addschedule');
     var schedules = document.querySelector('.schedules');
 
-  if(localStorage.getItem('widget') === 'clicked') {
-    addschedule.style.display = 'block';
-    schedules.style.display = 'none';
-    localStorage.removeItem('widget');
-  }
-  var schedule_navi = document.querySelector('.nav_box_schedules');
-  schedule_navi.addEventListener('click', function () {
-    window.location.reload(true);
-  })
+    if (localStorage.getItem('widget') === 'clicked') {
+        addschedule.style.display = 'block';
+        schedules.style.display = 'none';
+        localStorage.removeItem('widget');
+    }
+    var schedule_navi = document.querySelector('.nav_box_schedules');
+    schedule_navi.addEventListener('click', function () {
+        window.location.reload(true);
+    })
 
 
-    function searchWeekDuplicate(allSchedules){
+    function searchWeekDuplicate(allSchedules) {
 
         let weekCheck = 0;
-        for(let i = 0; i<allSchedules.length;i++){
-            if(allSchedules[i].week == weekNumber.value){
+        for (let i = 0; i < allSchedules.length; i++) {
+            if (allSchedules[i].week == weekNumber.value) {
                 weekCheck++
             }
         }
