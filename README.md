@@ -1,11 +1,29 @@
-# ScrumLab
-This is a repository dedicated to ScrumLab front-end project.
+# Zaplanuj jedzonko
+
+Zaplanuj jedzonko is result of first ScrumLab in Coders Lab bootcamp
+
+## Description
+
+Zaplanuj jedzonko is food planer.With usage of local storage giving option of opening your own account,adding meals,removing meals and preview of all previus saved meals.
+
+## Built With
+
+* [Java Script](https://www.javascript.com/) - JavaScript: Programming Language 
+* [Sass](https://sass-lang.com/) - Sass: CSS with superpowers
+* [HTML](http://www.html.com) - HTML: HyperText Markup Language
+
+
 
 ## How to start
 To start development follow this instruction:
 
 * `clone` this repo
 * `npm install` all necessary npm packages
+
+#### `npm start`
+
+Runs the app in the development mode.<br>
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 
 ## Gulp usage
@@ -18,23 +36,7 @@ Avaliable commends for you to type in console:
 `gulp sass` - compiles sass into CSS & auto-inject into browsers
 
 
-## Folder Structure
-```
-| - development/
-	| - css/      
-	| - fonts/
-	| - images/  
-	| - js/
-	| - scss/
-	| - app.html  
-	| - index.html  
-	| - recipes.html    
-	| - schedules.html
-| - distribution/
-| - package.json
-| - gulpfile.js
-```
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
 
-***where:***
-`distribution` - is used to contain optimized files for the production site.
-`development`  - is used to contain source code.
+
